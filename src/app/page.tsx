@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 
 export default function Home() {
   // Keep track of the classification result and model loading status;
@@ -22,6 +22,13 @@ export default function Home() {
     setResult(json);
   }
 
+  const handleInputChange = (event: FormEvent<HTMLInputElement>) => {
+    if ('value' in event.target) {
+      const value = event.target.value as string | undefined;
+      classify(value);
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-12">
       <h1 className="text-5xl font-bold mb-2 text-center">AI Workshop</h1>
@@ -30,9 +37,7 @@ export default function Home() {
         type="text"
         className="w-full max-w-xs p-2 border border-gray-300 rounded mb-4 text-slate-950"
         placeholder="Enter text here"
-        onInput={e => {
-          classify(e.target.value);
-        }}
+        onInput={handleInputChange}
       />
 
       {ready !== null && (
