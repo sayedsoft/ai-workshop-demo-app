@@ -3,7 +3,6 @@
 import { FormEvent, useState } from 'react'
 
 export default function Home() {
-  // Keep track of the classification result and model loading status;
   const [result, setResult] = useState(null)
   const [ready, setReady] = useState<boolean | null>(null);
 
@@ -11,7 +10,6 @@ export default function Home() {
     if (!text) return;
     if (!ready) setReady(false);
 
-    // Make a request to the /classify route on the server
     const result = await fetch(`/classify?text=${encodeURIComponent(text)}`);
 
     if (!ready) {
